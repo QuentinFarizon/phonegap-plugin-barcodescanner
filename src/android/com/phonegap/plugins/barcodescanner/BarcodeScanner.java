@@ -205,9 +205,11 @@ public class BarcodeScanner extends CordovaPlugin {
                 // avoid calling other phonegap apps
                 intentScan.setPackage(that.cordova.getActivity().getApplicationContext().getPackageName());
                 Bundle b = intentScan.getExtras();
-                Log.e("intentScan", b.toString());
-                for (String key : b.keySet()) {
-                    Log.e(key, ""+b.get(key));
+                if (b != null) {
+                    Log.e("intentScan", b.toString());
+                    for (String key : b.keySet()) {
+                        Log.e(key, ""+b.get(key));
+                    }
                 }
                 that.cordova.startActivityForResult(that, intentScan, REQUEST_CODE);
             }
