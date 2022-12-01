@@ -227,6 +227,19 @@ public class BarcodeScanner extends CordovaPlugin {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (intent == null) {
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put(TEXT, "");
+                obj.put(FORMAT, "");
+                obj.put(CANCELLED, true);
+            } catch (JSONException e) {
+                Log.d(LOG_TAG, "This should never happen");
+            }
+            this.callbackContext.success(obj);
+            return;
+        }
+
         Bundle b = intent.getExtras();
         Log.e("RESULT ON ACTIVITY", b.toString());
         for (String key : b.keySet()) {
